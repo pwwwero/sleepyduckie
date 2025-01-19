@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://byks24b34egfi"]
+
+[ext_resource type="Texture2D" uid="uid://dr2jbghvi5soi" path="res://Sprites/Player/TILE.png" id="1_lcwya"]
+[ext_resource type="Script" path="res://Scenes/Fases/fase_2.gd" id="1_vofye"]
+[ext_resource type="PackedScene" uid="uid://b0s1g0amjyjna" path="res://Scenes/player.tscn" id="2_rqf45"]
+[ext_resource type="PackedScene" uid="uid://jqahqwgpf47m" path="res://Scenes/Danger/cama.tscn" id="4_6f0kt"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ab6es"]
+texture = ExtResource("1_lcwya")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -5.5, 8, -8, 8, 8, -8, 6.5, -7, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_gxp8u"]
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_ab6es")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_palv4"]
+size = Vector2(435, 335)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rasl7"]
+size = Vector2(523, 445)
+
+[node name="fase2" type="Node2D"]
+script = ExtResource("1_vofye")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1461.0
+offset_bottom = 425.0
+color = Color(0.913725, 0.568627, 0.345098, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+texture_filter = 1
+scale = Vector2(3.5, 3.5)
+tile_set = SubResource("TileSet_gxp8u")
+format = 2
+layer_0/tile_data = PackedInt32Array(393217, 131072, 1, 393218, 131072, 1, 393219, 131072, 1, 393220, 131072, 1, 393221, 131072, 1, 458757, 131072, 1, 458758, 131072, 1, 393222, 131072, 1, 393223, 131072, 1, 458756, 131072, 1, 458755, 131072, 1, 458754, 131072, 1, 458753, 131072, 1, 458752, 131072, 1, 393216, 131072, 1, 327680, 131072, 1, 262144, 131072, 1, 196608, 131072, 1, 131072, 131072, 1, 65536, 131072, 1, 0, 131072, 1, 65535, 131072, 1, 131071, 131072, 1, 196607, 131072, 1, 262143, 131072, 1, 327679, 131072, 1, 393215, 131072, 1, 458751, 131072, 1, 458759, 131072, 1, 393224, 131072, 1, 458760, 131072, 1, 458762, 196608, 1, 393226, 196608, 1, 327690, 196608, 1, 458763, 196608, 0, 458761, 196608, 0, 262156, 196608, 0, 262157, 196608, 0, 196624, 131072, 0, 262160, 196608, 1, 327696, 196608, 1, 393232, 196608, 1, 458768, 196608, 1)
+layer_1/name = "Layer1"
+
+[node name="Player" parent="." instance=ExtResource("2_rqf45")]
+position = Vector2(93, 302)
+
+[node name="Cama" parent="." instance=ExtResource("4_6f0kt")]
+position = Vector2(435, 307)
+scale = Vector2(2.5, 2.5)
+
+[node name="1_2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1_2"]
+position = Vector2(277, 167)
+shape = SubResource("RectangleShape2D_palv4")
+
+[node name="pos_1" type="Marker2D" parent="1_2"]
+
+[node name="2_1_3" type="Area2D" parent="."]
+position = Vector2(519, 1)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="2_1_3"]
+position = Vector2(251.5, 211.5)
+shape = SubResource("RectangleShape2D_rasl7")
+
+[node name="pos_2" type="Marker2D" parent="2_1_3"]
+
+[connection signal="area_entered" from="2_1_3" to="." method="_on_2_1_3_area_entered"]

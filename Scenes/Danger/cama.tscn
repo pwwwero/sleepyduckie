@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://jqahqwgpf47m"]
+
+[ext_resource type="Script" path="res://Scripts/cama.gd" id="1_0a6m6"]
+[ext_resource type="Texture2D" uid="uid://cabv6w3udtohd" path="res://Sprites/bed.png" id="1_0b3l1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ma6x"]
+size = Vector2(8.5, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_12qd1"]
+size = Vector2(2, 7.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxuft"]
+size = Vector2(23, 7)
+
+[node name="Cama" type="Area2D"]
+position = Vector2(0, -1)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_0a6m6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1, -15)
+texture = ExtResource("1_0b3l1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 3)
+shape = SubResource("RectangleShape2D_4ma6x")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-15, 9)
+shape = SubResource("RectangleShape2D_12qd1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(10, 9)
+shape = SubResource("RectangleShape2D_12qd1")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-2.5, 8.5)
+shape = SubResource("RectangleShape2D_gxuft")
+
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]

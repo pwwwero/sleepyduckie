@@ -1,0 +1,213 @@
+[gd_scene load_steps=15 format=3 uid="uid://dcjov37pfa8em"]
+
+[ext_resource type="Texture2D" uid="uid://dr2jbghvi5soi" path="res://Sprites/Player/TILE.png" id="1_8v23t"]
+[ext_resource type="Shader" path="res://Scenes/pixel.gdshader" id="1_igowd"]
+[ext_resource type="Script" path="res://Scenes/Fases/fase_1.gd" id="1_xr1kk"]
+[ext_resource type="PackedScene" uid="uid://b0s1g0amjyjna" path="res://Scenes/player.tscn" id="3_y6s0d"]
+[ext_resource type="PackedScene" uid="uid://jqahqwgpf47m" path="res://Scenes/Danger/cama.tscn" id="5_kkjxw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r6ng5"]
+shader = ExtResource("1_igowd")
+shader_parameter/size_x = 0.005
+shader_parameter/size_y = 0.005
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pmyg8"]
+texture = ExtResource("1_8v23t")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -8, 8, 8, 8, 8, -8)
+0:1/0 = 0
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_jiwlc"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_pmyg8")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uy0lt"]
+size = Vector2(557, 429)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8ax0"]
+size = Vector2(348, 258)
+
+[sub_resource type="Animation" id="Animation_m8qyn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D/shader:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D/shader:material:shader_parameter/size_x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.005]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/shader:material:shader_parameter/size_y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.005]
+}
+
+[sub_resource type="Animation" id="Animation_qtt41"]
+resource_name = "shader"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D/shader:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D/shader:material:shader_parameter/size_x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.005, 0.1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/shader:material:shader_parameter/size_y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.005, 0.1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4crtt"]
+_data = {
+"RESET": SubResource("Animation_m8qyn"),
+"shader": SubResource("Animation_qtt41")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k84if"]
+size = Vector2(355, 441)
+
+[node name="fase1" type="Node2D"]
+script = ExtResource("1_xr1kk")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="shader" type="ColorRect" parent="Camera2D"]
+visible = false
+z_index = 4096
+material = SubResource("ShaderMaterial_r6ng5")
+offset_left = -89.0
+offset_top = -27.0
+offset_right = 674.0
+offset_bottom = 495.0
+
+[node name="Player" parent="." instance=ExtResource("3_y6s0d")]
+position = Vector2(1026, 267)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 2279.0
+offset_bottom = 488.0
+color = Color(0.258824, 0.372549, 1, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+texture_filter = 1
+position = Vector2(-28, -129)
+scale = Vector2(3.5, 3.5)
+tile_set = SubResource("TileSet_jiwlc")
+format = 2
+layer_0/tile_data = PackedInt32Array(524293, 65536, 1, 524292, 65536, 1, 524291, 65536, 0, 524290, 0, 0, 589827, 131072, 1, 589828, 0, 1, 589831, 131072, 1, 589829, 131072, 1, 589826, 196608, 1, 655364, 131072, 1, 524294, 0, 0, 589830, 0, 1, 524295, 131072, 0, 655365, 131072, 1, 524289, 131072, 1, 458752, 131072, 1, 393216, 0, 1, 327680, 131072, 1, 262144, 196608, 0, 524288, 196608, 1, 196608, 131072, 1, 589832, 0, 1, 524297, 131072, 1, 524296, 131072, 1, 589833, 196608, 0, 524298, 131072, 1, 589825, 65536, 1, 589824, 0, 1, 131072, 0, 1, 131073, 0, 1, 131074, 196608, 1, 131075, 196608, 0, 458760, 196608, 1, 458761, 196608, 1, 458762, 196608, 1, 196611, 196608, 0, 458764, 0, 0, 458765, 65536, 0, 458766, 65536, 0, 458767, 65536, 0, 458768, 131072, 0, 524304, 196608, 0, 589840, 196608, 0, 655376, 196608, 0, 524300, 196608, 0, 589836, 196608, 0, 655372, 196608, 0, 524301, 131072, 1, 589837, 131072, 1, 589838, 131072, 1, 655373, 0, 1, 524302, 0, 1, 524303, 0, 1, 589839, 196608, 1, 655375, 0, 1, 655374, 196608, 1, 131076, 131072, 1, 131077, 131072, 1, 131078, 131072, 1, 131079, 131072, 1, 196614, 131072, 1, 196615, 131072, 1, 196616, 131072, 1, 131080, 131072, 1, 131081, 131072, 1, 131082, 131072, 1, 131083, 131072, 1, 131084, 131072, 1, 131085, 131072, 1, 131086, 131072, 1, 131087, 131072, 1, 131088, 131072, 1, 131089, 131072, 1, 131090, 131072, 1, 131091, 131072, 1, 131092, 131072, 1, 196628, 131072, 1, 196629, 131072, 1, 196630, 131072, 1, 262166, 131072, 1, 524307, 65536, 1, 524308, 65536, 1, 524309, 65536, 1, 524310, 196608, 1, 589846, 196608, 1, 655382, 196608, 0, 589842, 196608, 0, 589843, 131072, 1, 655379, 196608, 0, 655380, 131072, 1, 655381, 0, 1, 589844, 0, 1, 589845, 131072, 1, 655378, 196608, 1, 524306, 196608, 0, 262167, 131072, 1, 327703, 131072, 1, 393239, 131072, 1, 458775, 131072, 1, 524311, 131072, 1, 589847, 131072, 1, 655383, 131072, 1)
+metadata/_edit_lock_ = true
+
+[node name="Doors+areas" type="Node2D" parent="."]
+
+[node name="1_to_2" type="Area2D" parent="Doors+areas"]
+position = Vector2(558, 232)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors+areas/1_to_2"]
+position = Vector2(-283.5, -17.5)
+shape = SubResource("RectangleShape2D_uy0lt")
+
+[node name="pos_1" type="Marker2D" parent="Doors+areas/1_to_2"]
+position = Vector2(-559, -231)
+
+[node name="2_1_3" type="Area2D" parent="Doors+areas"]
+position = Vector2(585, 20)
+
+[node name="pos_2" type="Marker2D" parent="Doors+areas/2_1_3"]
+position = Vector2(-30, -18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Doors+areas/2_1_3"]
+position = Vector2(167, 112)
+shape = SubResource("RectangleShape2D_o8ax0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4crtt")
+}
+
+[node name="Cama" parent="." instance=ExtResource("5_kkjxw")]
+position = Vector2(1221, 288)
+scale = Vector2(3, 3)
+
+[node name="3_2" type="Area2D" parent="."]
+position = Vector2(958, 19)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="3_2"]
+position = Vector2(167.5, 210.5)
+shape = SubResource("RectangleShape2D_k84if")
+
+[node name="pos_3" type="Marker2D" parent="3_2"]
+position = Vector2(-9, -19)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="area_entered" from="Doors+areas/1_to_2" to="." method="_on_1_to_2_area_entered"]
+[connection signal="area_entered" from="Doors+areas/2_1_3" to="." method="_on_2_1_3_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_entered" from="3_2" to="." method="_on_3_2_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
